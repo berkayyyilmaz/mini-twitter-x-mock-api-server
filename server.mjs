@@ -11,7 +11,7 @@ app.use(express.json());
 // In-memory data storage
 const users = [];
 const tokens = [
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjkzNTA0NTE4LCJleHAiOjE2OTM1MDgxMTh9.IUlyLJAcrqT0lwquK5-mD_tPdmrT7ndibnr6CiRZ5cg",
+  // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjkzNTA0NTE4LCJleHAiOjE2OTM1MDgxMTh9.IUlyLJAcrqT0lwquK5-mD_tPdmrT7ndibnr6CiRZ5cg",
 ];
 
 // Register endpoint
@@ -62,7 +62,7 @@ app.post("/profile/login", async (req, res) => {
       .json({ status: "error", message: "Invalid username or password." });
   }
 
-  const token = jwt.sign({ id: user.id }, "SECRET_KEY", { expiresIn: "1h" });
+  const token = jwt.sign({ id: user.id }, "SECRET_KEY", { expiresIn: "12h" });
   tokens.push(token);
 
   res.json({
@@ -87,8 +87,11 @@ app.post("/profile/logout", (req, res) => {
     message: "Logged out successfully.",
   });
 });
-
+//----------------------
 // Tweet Routes
+//----------------------
+
+// Middleware to authenticate token
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
@@ -112,8 +115,10 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
+// In-memory data storage
 const tweets = [];
 
+// Get all tweets
 app.post("/tweet", authenticateToken, (req, res) => {
   const { content } = req.body;
 
@@ -133,6 +138,56 @@ app.post("/tweet", authenticateToken, (req, res) => {
     data: newTweet,
   });
 });
+
+// Retweet a tweet
+app.post("/tweet/retweet/:id", authenticateToken, (req, res) => {
+  const tweetId = parseInt(req.params.id);
+  const { userId } = req.body;
+
+  const originalTweet = tweets.find((t) => t.id === tweetId);
+
+  if (!originalTweet) {
+    return res
+      .status(404)
+      .json({ status: "error", message: "Tweet not found." });
+  }
+
+  // Check if the user has already retweeted
+  const userRetweet = tweets.find(
+    (t) => t.retweetedFrom === tweetId && t.userId === userId
+  );
+  if (userRetweet) {
+    return res.status(400).json({
+      id: userRetweet.id,
+      status: "error",
+      message: "User has already retweeted this tweet.",
+    });
+  }
+
+  originalTweet.retweets += 1;
+
+  // Create a new tweet for the retweet
+  const retweet = {
+    id: tweets.length + 1,
+    content: originalTweet.content, // Copying content from original tweet
+    likes: 0,
+    retweets: 0,
+    replies: [],
+    userId, // The user who retweeted
+    retweetedFrom: originalTweet.id, // Reference to the original tweet
+  };
+
+  tweets.push(retweet);
+
+  res.json({
+    status: "success",
+    message: "Tweet retweeted successfully.",
+  });
+});
+
+// ----------------------
+// Sample Route
+// ----------------------
 
 // Sample route to test the server
 app.get("/", (req, res) => {
