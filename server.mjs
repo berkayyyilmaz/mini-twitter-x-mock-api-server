@@ -10,7 +10,9 @@ app.use(express.json());
 
 // In-memory data storage
 const users = [];
-const tokens = [];
+const tokens = [
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjkzNTA0NTE4LCJleHAiOjE2OTM1MDgxMTh9.IUlyLJAcrqT0lwquK5-mD_tPdmrT7ndibnr6CiRZ5cg",
+];
 
 // Register endpoint
 app.post("/profile/register", async (req, res) => {
@@ -83,6 +85,52 @@ app.post("/profile/logout", (req, res) => {
   res.json({
     status: "success",
     message: "Logged out successfully.",
+  });
+});
+
+// Tweet Routes
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  console.log(
+    "request Token",
+    tokens,
+    `${token?.slice(0, 5)}...${token?.slice(token?.length - 5)}, ${token}`
+  );
+  if (!token)
+    return res
+      .status(401)
+      .json({ status: "error", message: "Token not provided." });
+
+  jwt.verify(token, "SECRET_KEY", (err, user) => {
+    if (err)
+      return res
+        .status(403)
+        .json({ status: "error", message: "Invalid token." });
+    req.user = user;
+    next();
+  });
+};
+
+const tweets = [];
+
+app.post("/tweet", authenticateToken, (req, res) => {
+  const { content } = req.body;
+
+  const newTweet = {
+    id: tweets.length + 1,
+    content,
+    likes: 0,
+    retweets: 0,
+    replies: [],
+  };
+
+  tweets.push(newTweet);
+
+  res.json({
+    status: "success",
+    message: "Tweet posted successfully.",
+    data: newTweet,
   });
 });
 

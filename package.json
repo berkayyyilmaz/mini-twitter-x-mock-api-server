@@ -4,7 +4,7 @@
   "description": "🚀 **Hoş Geldiniz, Geleceğin Frontend Geliştiricileri!** 🚀",
   "main": "index.js",
   "scripts": {
-    "api": "node server.mjs",
+    "api": "nodemon node server.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
