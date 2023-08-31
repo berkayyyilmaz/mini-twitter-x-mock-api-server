@@ -1,4 +1,4 @@
-# Mini Twitter X - API Server
+# Mini Twitter X - Mock API Server
 
 ## How to run
 
@@ -41,7 +41,13 @@ Predefined user: {
 | POST   | `${URL}/profile/logout`   | Logout   |
 | POST   | `${URL}/profile/login`    | Login    |
 
-**Tweet İşlemleri:**
+## Dynamic Documentation
+
+### [Profile API with Sample Requests and Responses](https://documenter.getpostman.com/view/391613/2s9Y5crzYH)
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/391613-69e7dcd3-f015-46fc-bfe6-ca07872f5c00?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D391613-69e7dcd3-f015-46fc-bfe6-ca07872f5c00%26entityType%3Dcollection%26workspaceId%3D59104268-2598-42ee-bcde-aadc73db1540#?env%5BMini%20Twitter%20X%20WiT%20Mock%20API%5D=W3siZW5hYmxlZCI6dHJ1ZSwia2V5IjoidXJsIiwidmFsdWUiOiJodHRwczovLzcxNTI1Yjk5LTQ1NWEtNDViZS1iZmViLTFiOWU4Mjg0YzA4YS5tb2NrLnBzdG1uLmlvIiwidHlwZSI6InRleHQifV0=)
+
+**Tweet Management:**
 
 There urls are protected by authentication. You need to send `Authorization` header with `Bearer <token>` value.
 
@@ -60,10 +66,6 @@ There urls are protected by authentication. You need to send `Authorization` hea
 
 ## Dynamic Documentation
 
-## [Profile](https://www.postman.com/warped-escape-979153/workspace/mini-twitter-x-mock-api/documentation/391613-69e7dcd3-f015-46fc-bfe6-ca07872f5c00)
-
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/391613-69e7dcd3-f015-46fc-bfe6-ca07872f5c00?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D391613-69e7dcd3-f015-46fc-bfe6-ca07872f5c00%26entityType%3Dcollection%26workspaceId%3D59104268-2598-42ee-bcde-aadc73db1540#?env%5BMini%20Twitter%20X%20WiT%20Mock%20API%5D=W3siZW5hYmxlZCI6dHJ1ZSwia2V5IjoidXJsIiwidmFsdWUiOiJodHRwczovLzcxNTI1Yjk5LTQ1NWEtNDViZS1iZmViLTFiOWU4Mjg0YzA4YS5tb2NrLnBzdG1uLmlvIiwidHlwZSI6InRleHQifV0=)
-
-## [Tweet Management](https://www.postman.com/warped-escape-979153/workspace/mini-twitter-x-mock-api/documentation/391613-745c5287-8164-4db7-9c19-ce90608075c2)
+### [Tweet Management API with Sample Requests and Responses](https://documenter.getpostman.com/view/391613/2s9Y5crzck)
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/391613-745c5287-8164-4db7-9c19-ce90608075c2?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D391613-745c5287-8164-4db7-9c19-ce90608075c2%26entityType%3Dcollection%26workspaceId%3D59104268-2598-42ee-bcde-aadc73db1540#?env%5BMini%20Twitter%20X%20WiT%20Mock%20API%5D=W3siZW5hYmxlZCI6dHJ1ZSwia2V5IjoidXJsIiwidmFsdWUiOiJodHRwczovLzcxNTI1Yjk5LTQ1NWEtNDViZS1iZmViLTFiOWU4Mjg0YzA4YS5tb2NrLnBzdG1uLmlvIiwidHlwZSI6InRleHQifV0=)
