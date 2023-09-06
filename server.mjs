@@ -208,7 +208,7 @@ app.post("/tweet", authenticateToken, (req, res) => {
 });
 
 // get all tweets
-app.get("/tweet", authenticateToken, (req, res) => {
+app.get("/tweet", (req, res) => {
   res.json({
     status: "success",
     message: "Tweets retrieved successfully.",
@@ -217,7 +217,7 @@ app.get("/tweet", authenticateToken, (req, res) => {
 });
 
 // Get a single tweet
-app.get("/tweet/:id", authenticateToken, (req, res) => {
+app.get("/tweet/:id", (req, res) => {
   const tweetId = req.params.id;
   console.log(tweetId);
   const tweet = tweets.find((t) => t.id === tweetId.toString());
