@@ -2,7 +2,7 @@ import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { nanoid } from "nanoid";
-
+import cors from "cors";
 // Import the tweets data in required format
 
 // import tweets.json from data/tweets.json and init server with that seed data
@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 3001;
 
 // Middleware to parse JSON requests
 app.use(express.json());
+app.use(cors());
 
 // In-memory data storage
 const users = [];
@@ -185,7 +186,7 @@ const authenticateToken = (req, res, next) => {
 
 const tweets = [...tweetsData];
 
-// Get all tweets
+// Add a new tweet
 app.post("/tweet", authenticateToken, (req, res) => {
   const { content } = req.body;
 
